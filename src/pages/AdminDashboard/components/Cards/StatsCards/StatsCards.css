@@ -1,0 +1,26 @@
+#StatsCard .card {
+  color: white;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+#StatsCard h5 {
+  color: white !important;
+  font-size: 16px;
+}
+
+#StatsCard p span {
+  color: white !important;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#StatsCard small {
+  font-size: 16px;
+  color: white;
+}
+
+#StatsCard .card-body {
+  border-radius: 20px;
+  padding: 30px;
+}

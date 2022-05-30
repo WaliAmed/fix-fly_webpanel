@@ -1,0 +1,129 @@
+.dashboard-body {
+  min-height: 100vh;
+}
+
+.side-bar {
+  height: 100vh;
+  position: fixed;
+}
+
+.admin .logo-title {
+  margin-left: 15px;
+}
+
+.admin .side-bar {
+  width: 300px;
+  background-color: #2a3a49;
+  min-height: 100vh;
+}
+
+.admin .nav-icon {
+  margin-right: 10px;
+}
+
+.admin .nav-options {
+  margin-bottom: auto;
+}
+
+.admin .container-body {
+  width: 100%;
+  margin-left: 300px;
+  background-color: #e8e9eb;
+}
+
+.admin .topbar {
+  background-color: white;
+  width: 100%;
+  height: 60px;
+  align-items: center;
+}
+
+.admin .nav-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.admin .input-group input {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.admin .searchIcon {
+  border: 1px solid #ced4db;
+  border-top: none;
+  border-left: none;
+  padding-top: 8px;
+}
+
+.admin .nav-pills .nav-link.active {
+  background-color: var(--theme-color);
+}
+
+.admin .nav-link {
+  display: flex;
+  align-items: center;
+}
+
+.admin .side-nav-btn {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.admin .side-nav-btn:hover {
+  background-color: var(--theme-color);
+}
+
+.admin .nav-pills a {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.admin .nav-pills li {
+  margin-bottom: 15px !important;
+}
+
+.dropbtn {
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content .dropdown-item {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  opacity: 0.8;
+}
