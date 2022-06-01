@@ -7,34 +7,7 @@ import "./ManageMechanic.css";
 import { IoMdArrowDropdown } from "react-icons/io";
 import localhost from "../../../../../utils/env";
 
-const ManageMechanic = () => {
-  const [allData_user, setallData_user] = useState([]);
-
-  useEffect(() => {
-    if (allData_user.length === 0) {
-      GetAllMechanics();
-    }
-
-    async function GetAllMechanics() {
-      var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-      };
-
-      fetch(localhost + "/admin/getpendingmechanic", requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          if (typeof result !== "undefined" && result.length !== 0) {
-            console.log(result);
-            setallData_user(result);
-          } else {
-            setallData_user({});
-          }
-        })
-        .catch((error) => console.log("error", error));
-    }
-  }, [allData_user]);
-
+const ManageMechanic = (props) => {
   const Approve = (id) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -73,6 +46,7 @@ const ManageMechanic = () => {
     id: "id",
     user_name: "User Name",
     email: "Email",
+    specialist: "Specialist",
     status: "Status",
     actions: "Actions",
   };
@@ -101,11 +75,13 @@ const ManageMechanic = () => {
     );
   };
 
-  const countPerPage = allData_user.length;
+  const countPerPage = props.allData_user?.length
+    ? props.allData_user.length
+    : 0;
   const [value_user, setValue_user] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [collection, setCollection] = useState(
-    cloneDeep(allData_user.slice(0, countPerPage))
+    cloneDeep(props.allData_user?.slice(0, countPerPage))
   );
 
   const searchData = useRef(
@@ -113,7 +89,7 @@ const ManageMechanic = () => {
       const query = val.toLowerCase();
       setCurrentPage(1);
       var data = cloneDeep(
-        allData_user
+        props.allData_user
           .filter(
             (item) => item.id.toString().toLowerCase().indexOf(query) > -1
           )
@@ -122,7 +98,7 @@ const ManageMechanic = () => {
 
       if (!data.length) {
         data = cloneDeep(
-          allData_user
+          props.allData_user
             .filter(
               (item) =>
                 item.user_name.toString().toLowerCase().indexOf(query) > -1
@@ -133,7 +109,7 @@ const ManageMechanic = () => {
 
       if (!data.length) {
         data = cloneDeep(
-          allData_user
+          props.allData_user
             .filter(
               (item) => item.email.toString().toLowerCase().indexOf(query) > -1
             )
@@ -166,7 +142,7 @@ const ManageMechanic = () => {
   const tableRows = (rowData) => {
     const { key, index } = rowData;
     const tableCell = Object.keys(tableHead);
-    const columnData = tableCell.map((keyD, i) => {
+    const columnData = tableCell?.map((keyD, i) => {
       if (keyD === "id") id = key[keyD];
       if (keyD === "actions") return <PaginationButtons key={i} id={id} />;
       else if (keyD === "id") return <td key={i}>{count++}</td>;
@@ -177,17 +153,17 @@ const ManageMechanic = () => {
   };
 
   function collection_fn(from, to) {
-    return cloneDeep(allData_user.slice(from, to));
+    return cloneDeep(props.allData_user?.slice(from, to));
   }
 
   const tableData = (from = 0, to = countPerPage) => {
-    return collection_fn(from, to).map((key, index) =>
+    return collection_fn(from, to)?.map((key, index) =>
       tableRows({ key, index })
     );
   };
 
   const headRow = () => {
-    return Object.values(tableHead).map((title, index) => (
+    return Object.values(tableHead)?.map((title, index) => (
       <td key={index}>{title}</td>
     ));
   };
@@ -205,7 +181,7 @@ const ManageMechanic = () => {
         pageSize={countPerPage}
         onChange={updatePage}
         current={currentPage}
-        total={allData_user.length}
+        total={props.allData_user?.length}
       />
     </div>
   );

@@ -224,6 +224,85 @@ const AdminDashboard = () => {
     );
   };
 
+  const [allData_user, setallData_user] = useState([]);
+
+  useEffect(() => {
+    const GetAllMechanics = () => {
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+      };
+
+      fetch(localhost + "/admin/getpendingmechanic", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (typeof result !== "undefined" && result.length !== 0) {
+            console.log(result);
+            setallData_user(result);
+          } else {
+            console.log("none");
+          }
+        })
+        .catch((error) => console.log("error", error));
+    };
+    GetAllMechanics();
+  }, []);
+
+  const [allData_user_approved, setallData_user_approved] = useState([]);
+
+  useEffect(() => {
+    const GetAllMechanicsApproved = () => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(localhost + "/admin/getaprovedmechanic", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (typeof result !== "undefined" && result.length !== 0) {
+            setallData_user_approved(result);
+          } else {
+            setallData_user_approved({});
+          }
+        })
+        .catch((error) => console.log("error", error));
+    };
+    GetAllMechanicsApproved();
+  }, []);
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const GetAllUsers = () => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(localhost + "/admin/getall/users", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (typeof result !== "undefined" && result.length !== 0) {
+            setUsers(result);
+          } else {
+            setUsers({});
+          }
+        })
+        .catch((error) => console.log("error", error));
+    };
+
+    GetAllUsers();
+  }, []);
+
   useEffect(() => {
     if (SideNavBarCheck === 1) document.title = "DashBoard | Admin Dashboard";
     else if (SideNavBarCheck === 2)
@@ -244,9 +323,21 @@ const AdminDashboard = () => {
         <div className="p-4 ">
           <div className="d-flex flex-column mt-4">
             {SideNavBarCheck === 1 ? <Dashboard /> : ""}
-            {SideNavBarCheck === 2 ? <ManageUsers /> : ""}
-            {SideNavBarCheck === 3 ? <ManageMechanics /> : ""}
-            {SideNavBarCheck === 3 ? <ManageMechanicApproved /> : ""}
+            {SideNavBarCheck === 2 && users.length > 0 ? (
+              <ManageUsers allData_user={users} />
+            ) : (
+              <p>{SideNavBarCheck === 2 ? "No Users!" : ""}</p>
+            )}
+            {SideNavBarCheck === 3 && allData_user.length > 0 ? (
+              <ManageMechanics allData_user={allData_user} />
+            ) : (
+              <p>{SideNavBarCheck === 3 ? "No Pending Mechanics!" : ""}</p>
+            )}
+            {SideNavBarCheck === 3 && allData_user_approved.length > 0 ? (
+              <ManageMechanicApproved allData_user={allData_user_approved} />
+            ) : (
+              <p>{SideNavBarCheck === 3 ? "No Approved Mechanics!" : ""}</p>
+            )}
           </div>
         </div>
       </div>

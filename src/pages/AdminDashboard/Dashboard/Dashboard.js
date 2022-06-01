@@ -98,14 +98,10 @@ const Dashboard = () => {
     fetch(localhost + "/admin/getaprovedmechanic", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log("Approved -> ", result[0].status);
-        if (
-          typeof result !== "undefined" &&
-          result.length !== 0 &&
-          result[0].status === "approved"
-        ) {
+        console.log("Approved -> ", result.length);
+        if (result.length > 0) {
           setApprovedMechanics(result.length);
-        }
+        } else setApprovedMechanics(0);
       })
       .catch((error) => console.log("error", error));
   };
