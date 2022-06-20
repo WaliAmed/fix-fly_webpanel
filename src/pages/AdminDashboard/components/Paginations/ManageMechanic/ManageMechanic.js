@@ -46,6 +46,7 @@ const ManageMechanic = (props) => {
     id: "id",
     user_name: "User Name",
     email: "Email",
+    phone: "Phone",
     specialist: "Specialist",
     status: "Status",
     actions: "Actions",
